@@ -25,12 +25,30 @@
 </head>
 <body>
     <img id="foguete" src="foguete.gif" onclick="Comecar()" width="80px" class="foguete">
+    <audio id="audio1" controls="" autoplay="">
+        <source src="contagem_regressiva.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="audio2" controls="" autoplay="">
+        <source src="lancamento_foguete.mp3" type="audio/mp3">
+    </audio>
 </body>
 <script src="jquery-3.7.0.min.js"> </script>
 <script>
 
     function Comecar(){
-        temporizador = setTimeout(Subir, 18000)
+        temporizador = setTimeout(Subir, 20000)
+
+        contagem = document.getElementById('audio1');
+        contagem.play();
+
+        temporizador2 = setTimeout(Tocar2, 20000)
+    }
+
+    function Tocar2()
+    {
+        contagem = document.getElementById('audio2');
+        contagem.play();
     }
 
     // Vamos pegar o tempo inicial:
@@ -48,9 +66,9 @@
     {
         TOPO = y + "px"
         ESQUERDA = x + "px"
-        $("#foguete").animate({left:ESQUERDA, top:TOPO},5000)
+        $("#foguete").animate({left:ESQUERDA, top:TOPO},18000)
         temporizador = null
-        temporizador = setInterval(Descer,2000)
+        temporizador = setInterval(Descer,1000)
     }
 
 
@@ -60,9 +78,8 @@
         TOPO = y + "px"
         ESQUERDA = x + "px"
         $("#foguete").animate({left:ESQUERDA, top:TOPO},1000)
-        if(y>520)
-        {
-            y = 520;
+        if(y>750){
+            y = 750;
         }
     }
 
@@ -83,11 +100,17 @@ function Pega_Tecla(e)
         tempo_inicial = tempo_final
         if(tecla == 37)
         {
-            x = x - 20   
+            $("#foguete").stop()
+            x = x - 20
+            ESQUERDA = x + "px"
+            Descer()  
         }
         if(tecla == 39)
         {   
+            $("#foguete").stop()
             x = x + 20
+            ESQUERDA = x + "px"
+            Descer()
         }
     }
 }
